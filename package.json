@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "joi": "^13.1.0"
+    "mongoose": "^6.0.8"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

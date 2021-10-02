@@ -1,18 +1,27 @@
 const express = require("express");
 const Joi = require("joi");
 const router = express.Router();
+const mongoose = require("mongoose");
+
+const Genre = new mongoose.model(
+  "Genre",
+  new mongoose.Schema({
+    name: {
+      type: String,
+      required: true,
+      minLength: 5,
+      maxLength: 50,
+    },
+  })
+);
 
 router.use(express.json());
 
-const genres = [
-  { id: 1, name: "Action" },
-  { id: 2, name: "Horror" },
-  { id: 3, name: "Romance" },
-];
-
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
+  const genres = await Genre.find().sort("name");
   res.send(genres);
 });
+
 router.get("/:id", (req, res) => {
   const genre = genres.find((genre) => genre.id === parseInt(req.params.id));
   if (!genre) return res.send("Fuck Off You Moron This Id Doesnt Exist");
